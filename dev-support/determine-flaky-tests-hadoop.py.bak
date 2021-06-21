@@ -47,7 +47,7 @@ if sysversion == 0x030000F0:
       ", please try a different version");
 
 if sysversion < 0x03000000:
-  import urllib.request, urllib.error, urllib.parse
+  import urllib2
 else:
   onward30 = True
   import urllib.request
@@ -105,7 +105,7 @@ def load_url_data(url):
     content = ourl.read().decode(codec)
     data = simplejson.loads(content, strict=False)
   else:
-    ourl = urllib.request.urlopen(url)
+    ourl = urllib2.urlopen(url)
     data = simplejson.load(ourl, strict=False)
   return data
  
