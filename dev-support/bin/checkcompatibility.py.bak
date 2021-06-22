@@ -30,7 +30,7 @@ import re
 import shutil
 import subprocess
 import sys
-import urllib.request, urllib.error, urllib.parse
+import urllib2
 try:
   import argparse
 except ImportError:
@@ -139,7 +139,7 @@ def checkout_java_acc(force):
   url = "https://github.com/lvc/japi-compliance-checker/archive/1.8.tar.gz"
   scratch_dir = get_scratch_dir()
   path = os.path.join(scratch_dir, os.path.basename(url))
-  jacc = urllib.request.urlopen(url)
+  jacc = urllib2.urlopen(url)
   with open(path, 'wb') as w:
     w.write(jacc.read())
 
@@ -194,7 +194,7 @@ def run_java_acc(src_name, src_jars, dst_name, dst_jars, annotations):
     annotations_path = os.path.join(get_scratch_dir(), "annotations.txt")
     with file(annotations_path, "w") as f:
       for ann in annotations:
-        print(ann, file=f)
+        print >>f, ann
     args += ["-annotations-list", annotations_path]
 
   subprocess.check_call(args)
